@@ -140,3 +140,6 @@ class ClientUserPayload(TypedDict):
     streamer_channel: ClientUserStreamerChannelsPayload
     roles: list  # Unknown
     profilepic: str | None
+
+class StreamURLKeyPayload(TypedDict):
+    ingest_url: str

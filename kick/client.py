@@ -213,6 +213,27 @@ class Client:
         user = User(data=data, http=self.http)
         return user
 
+    async def fetch_stream_url_and_key(self) -> str:
+        """
+        |coro|
+
+        Fetches your stream URL and stream key from the API.
+        You must be authenticated to use this endpoint.
+
+        Raises
+        -----------
+        HTTPException
+            Fetching Failed
+        Forbidden
+            You are not authenticated
+
+        Returns
+        -----------
+        str
+        """
+        
+        return await self.http.get_stream_destination_url_and_key()
+
     def dispatch(self, event_name: str, *args, **kwargs) -> None:
         event_name = f"on_{event_name}"
 
