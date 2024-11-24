@@ -213,6 +213,42 @@ class Client:
         user = User(data=data, http=self.http)
         return user
 
+    async def set_stream_info(self, title, language, category_name, 
+                              sub_category_id,  is_mature) -> StreamInfo:
+        data = await self.http.set_stream_info({
+            "title": title,
+            "language": language,
+            "is_mature": is_mature,
+            "subcategoryName": category_name,
+            "subcategoryId": sub_category_id
+            })
+        return StreamInfo(data=data)
+
+    async def search_categories(self, query: str, /) -> CategorySearch:
+        """
+        |coro|
+
+        Searches for categories/games on Kick.
+
+        Parameters
+        -----------
+        query: str
+            The search query string
+
+        Raises
+        -----------
+        HTTPException
+            Search request failed
+
+        Returns
+        -----------
+        SearchResponse
+            The search results containing matching categories
+        """
+
+        data = await self.http.search_categories(query)
+        return CategorySearch(data=data)
+
     def dispatch(self, event_name: str, *args, **kwargs) -> None:
         event_name = f"on_{event_name}"
 
